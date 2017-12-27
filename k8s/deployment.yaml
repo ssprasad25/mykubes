@@ -1,0 +1,24 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: docker-demo
+spec:
+  replicas: 2
+  template:
+    metadata:
+      name: docker-demo
+      labels:
+        app: docker-demo
+      namespace: default
+    spec:
+      containers:
+        - name: web
+          image: ssartisan/pints-docker-demo:latest
+          ports:
+            - containerPort: 8080
+          readinessProbe:
+            httpGet:
+              path: /docker-demo/index.html
+              port: 8080
+      imagePullSecrets:
+        - name: ssbuild

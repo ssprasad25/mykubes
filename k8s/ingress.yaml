@@ -1,0 +1,16 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: ing-docker-demo
+spec:
+  tls:
+  - hosts:
+    - docker-demo.k8s1.pints.io
+    secretName: tls
+  rules:
+    - host: docker-demo.k8s1.pints.io
+      http:
+        paths:
+        - backend:
+            serviceName: svc-docker-demo
+            servicePort: 80
